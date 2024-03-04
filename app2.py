@@ -47,47 +47,25 @@ def predict_insurance_cost(age,sex,weight,bmi,hereditary_diseases,no_of_dependen
     
     prediction = models[model].predict(input_data)
     
-    return prediction[0]
-  
-# Create Gradio interface
-def app_interface():
-    with gr.Blocks() as interface:
-        with gr.Row("Health Insurance Cost Prediction"):
-            
-            with gr.Column("Model Training "):
-                gr.HTML("<h2>Train your own model!</h2>")
-                with gr.Row("Random Forest Model"):
-                    with gr.Row(""):
-                        gr.HTML("<h2>Random Forest Model</h2>")
-                        
-                    random_input = [
+    return str(prediction[0]) + "$ cost"
+
+
+random_input = [
                         gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators")
                     ]
-                    random_output = [
+random_output = [
                         gr.Textbox(label="MEA Score"),
                         gr.Textbox(label="R2 Score")
                     ]
-                    
-                    random_train_button = gr.Button(value="Train Random Forest Model")
-                    
-                with gr.Row("Gradient Boost Regressor"):
-                    gr.HTML("<h2>Gradient Boost Regressor Model</h2>")
-                    gradient_input = [
+gradient_input = [
                         gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators"),
                         gr.Slider(minimum=0.00000000001, maximum=1, label="Learning Rate")
                     ]
-                    gradient_output = [
+gradient_output = [
                         gr.Textbox(label="MEA Score"),
                         gr.Textbox(label="R2 Score")
                     ]
-                    
-                    gradient_train_button = gr.Button(value="Train Gradient Boost Regressor Model")
-                    
-                
-            with gr.Column("Please fill the form to predict insurance cost!"):
-                gr.HTML("<h2>Please fill the form to predict insurance cost!</h2>")
-                
-                inp = [
+inp = [
                     gr.Slider(label="Age", minimum=1, maximum=120),
                     gr.Radio(label="Sex", choices=[("Male", 1), ("Female", 0)]),
                     gr.Slider(label="Weight (kg)", minimum=10, maximum=300, step=1),
@@ -107,15 +85,32 @@ def app_interface():
                     gr.Radio(label = "Model", choices=[("Random Forest", 0), ("Gradient Boost Regressor", 1)])
                 ]
                 
-                output = [gr.Textbox(label="Prediction")]
-                predict_button = gr.Button(value="Health Insurance Cost Prediction")
-                
-                
-        random_train_button.click(run_one, inputs=random_input, outputs=random_output)
-        gradient_train_button.click(run_two, inputs=gradient_input, outputs=gradient_output)
-        predict_button.click(predict_insurance_cost, inputs=inp, outputs=output)
-
-    interface.launch()
+output = [gr.Textbox(label="Prediction")]
+random_forest = gr.Interface(
+    fn = run_one,
+    inputs = random_input,
+    outputs = random_output,  
+    submit_btn = "Train Model 1",
+    title="Train your own model!"
+    
+)
+regressor = gr.Interface(
+    fn = run_two,
+    inputs = gradient_input,
+    outputs = gradient_output,  
+    submit_btn = "Train Model 2",
+    title="Train your own model!"
+    
+)
+train = gr.Interface(
+    fn = predict_insurance_cost,
+    inputs = inp,
+    outputs = output, 
+    submit_btn="Predict",
+    title="Predict Health Insurance Cost!!",
+   
+)
+demo = gr.TabbedInterface([random_forest, regressor, train], ["Train Model 1","Train Model 2", "Predict"])
 
 if __name__ == "__main__":
-    app_interface()
+    demo.launch()
