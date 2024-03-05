@@ -91,7 +91,8 @@ random_forest = gr.Interface(
     inputs = random_input,
     outputs = random_output,  
     submit_btn = "Train Model 1",
-    title="Train your own model!"
+    title="Train your own model!",
+    description="<img src='https://i.ibb.co/Bw08434/logo-1.png' alt='Logo' style='width:230px;height:100px;border-radius:5px;box-shadow:2px 2px 5px 0px rgba(0,0,0,0.75);background-color:black;'><br>",
     
 )
 regressor = gr.Interface(
@@ -99,7 +100,7 @@ regressor = gr.Interface(
     inputs = gradient_input,
     outputs = gradient_output,  
     submit_btn = "Train Model 2",
-    title="Train your own model!"
+    title="Train your own model!",description="<img src='https://i.ibb.co/Bw08434/logo-1.png' alt='Logo' style='width:230px;height:100px;border-radius:5px;box-shadow:2px 2px 5px 0px rgba(0,0,0,0.75);background-color:black;'><br>",
     
 )
 train = gr.Interface(
@@ -107,7 +108,7 @@ train = gr.Interface(
     inputs = inp,
     outputs = output, 
     submit_btn="Predict",
-    title="Predict Health Insurance Cost!!",
+    title="Predict Health Insurance Cost!!",description="<img src='https://i.ibb.co/Bw08434/logo-1.png' alt='Logo' style='width:230px;height:100px;border-radius:5px;box-shadow:2px 2px 5px 0px rgba(0,0,0,0.75);background-color:black;'><br>Predict the insurance cost of an instance here!!",
    
 )
 demo = gr.TabbedInterface([random_forest, regressor, train], ["Train Model 1","Train Model 2", "Predict"])
