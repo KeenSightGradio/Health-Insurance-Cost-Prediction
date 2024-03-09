@@ -51,19 +51,27 @@ def predict_insurance_cost(age,sex,weight,bmi,hereditary_diseases,no_of_dependen
 
 
 random_input = [
-                        gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators")
+                        gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators"),
+                        gr.Slider(minimum=1, maximum=500, step = 1, label="Max Depth"), 
+                        gr.Slider(minimum=0, maximum=1, step = 0.1, label="Test Size"), 
                     ]
 random_output = [
                         gr.Textbox(label="MEA Score"),
-                        gr.Textbox(label="R2 Score")
+                        gr.Textbox(label="R2 Score"),
+                        gr.Image(label="ROC"),
+                        gr.Image(label = "Loss")
                     ]
 gradient_input = [
                         gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators"),
-                        gr.Slider(minimum=0.00000000001, maximum=1, label="Learning Rate")
+                        gr.Slider(minimum=0.00000000001, maximum=1, label="Learning Rate"),
+                        gr.Slider(minimum=1, maximum=500, step = 1, label="Max Depth"), 
+                        gr.Slider(minimum=0, maximum=1, step = 0.1, label="Test Size"), 
                     ]
 gradient_output = [
                         gr.Textbox(label="MEA Score"),
-                        gr.Textbox(label="R2 Score")
+                        gr.Textbox(label="R2 Score"),
+                        gr.Image(label="ROC"),
+                        gr.Image(label = "Loss")
                     ]
 inp = [
                     gr.Slider(label="Age", minimum=1, maximum=120),

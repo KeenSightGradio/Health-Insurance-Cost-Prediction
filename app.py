@@ -32,11 +32,10 @@ def predict_insurance_cost(age,sex,weight,bmi,hereditary_diseases,no_of_dependen
     'diabetes': diabetes,
     'regular_ex': regular_ex
 }
-    # print(input_data)
-    
     # Convert input data to a DataFrame with a single row
     input_data = pd.DataFrame([input_data])
     input_data = input_data[feature_names]
+    
     for col in feature_names:
         input_data[col] = pd.to_numeric(input_data[col])
         
@@ -61,11 +60,16 @@ def app_interface():
                         gr.HTML("<h2>Random Forest Model</h2>")
                         
                     random_input = [
-                        gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators")
+                        gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators"), 
+                        gr.Slider(minimum=1, maximum=500, step = 1, label="Max Depth"), 
+                        gr.Slider(minimum=0, maximum=1, step = 0.1, label="Test Size"), 
                     ]
                     random_output = [
                         gr.Textbox(label="MEA Score"),
-                        gr.Textbox(label="R2 Score")
+                        gr.Textbox(label="R2 Score"), 
+                        gr.Image(label="ROC"),
+                        gr.Image(label = "Loss")
+                        
                     ]
                     
                     random_train_button = gr.Button(value="Train Random Forest Model")
@@ -74,11 +78,15 @@ def app_interface():
                     gr.HTML("<h2>Gradient Boost Regressor Model</h2>")
                     gradient_input = [
                         gr.Slider(minimum=10, maximum=500, step = 5, label="Number of Estimators"),
-                        gr.Slider(minimum=0.00000000001, maximum=1, label="Learning Rate")
+                        gr.Slider(minimum=0.00000000001, maximum=1, label="Learning Rate"),
+                        gr.Slider(minimum=1, maximum=500, step = 1, label="Max Depth"), 
+                        gr.Slider(minimum=0, maximum=1, step = 0.1, label="Test Size"), 
                     ]
                     gradient_output = [
                         gr.Textbox(label="MEA Score"),
-                        gr.Textbox(label="R2 Score")
+                        gr.Textbox(label="R2 Score"),
+                        gr.Image(label="ROC"),
+                        gr.Image(label = "Loss")
                     ]
                     
                     gradient_train_button = gr.Button(value="Train Gradient Boost Regressor Model")
@@ -109,7 +117,6 @@ def app_interface():
                 
                 output = [gr.Textbox(label="Prediction")]
                 predict_button = gr.Button(value="Health Insurance Cost Prediction")
-                
                 
         random_train_button.click(run_one, inputs=random_input, outputs=random_output)
         gradient_train_button.click(run_two, inputs=gradient_input, outputs=gradient_output)
