@@ -65,6 +65,8 @@ def app_interface():
                 ]
             
                 random_train_button = gr.Button(value="Train Random Forest Model")
+                gr.HTML("<h3>Dataset link here: <a href='https://www.kaggle.com/datasets/sureshgupta/health-insurance-data-set'>Dataset</a>.</h3>")
+                  
             
             with gr.Column("Please fill the form to predict insurance cost!"):
                 gr.HTML("<h2>Please fill the form to predict insurance cost!</h2>")

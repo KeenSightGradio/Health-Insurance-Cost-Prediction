@@ -83,6 +83,7 @@ random_forest = gr.Interface(
     submit_btn = "Train Model 1",
     title="Train your own model!",
     description="<img src='https://i.ibb.co/Bw08434/logo-1.png' alt='Logo' style='width:230px;height:100px;border-radius:5px;box-shadow:2px 2px 5px 0px rgba(0,0,0,0.75);background-color:black;'><br>",
+    article = "<h3>Dataset link here: <a href='https://www.kaggle.com/datasets/sureshgupta/health-insurance-data-set'>Dataset</a>.</h3>"
     
 )
 
