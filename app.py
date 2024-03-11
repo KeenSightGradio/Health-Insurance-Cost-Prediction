@@ -38,16 +38,18 @@ def predict_insurance_cost(age,sex,weight,bmi,hereditary_diseases,no_of_dependen
     input_data=input_data.drop_duplicates()
     
     prediction = random_model.predict(input_data)
-    return str(int(prediction[0])) + "$"
+    return str(int(prediction[0])) + " 💲 Insurance Cost"
   
 # Create Gradio interface
 def app_interface():
     with gr.Blocks() as interface:
-        gr.HTML("<img src='https://i.ibb.co/Bw08434/logo-1.png' alt='Logo' style='width:230px;height:100px;border-radius:5px;box-shadow:2px 2px 5px 0px rgba(0,0,0,0.75);background-color:black;'><br>",)
+        # gr.HTML("<img src='https://i.ibb.co/Bw08434/logo-1.png' alt='Logo' style='width:230px;height:100px;border-radius:5px;box-shadow:2px 2px 5px 0px rgba(0,0,0,0.75);background-color:black;'><br>",)
     
         with gr.Row("Health Insurance Cost Prediction"):
             
             with gr.Column("Model Training "):
+                gr.Image("logo_keensight.png", height=100, width=300)
+
                 gr.HTML("<h2>Train your own model!</h2>")
                    
                 random_input = [
@@ -58,9 +60,8 @@ def app_interface():
             
                 random_output = [
                     gr.Textbox(label="MEA Score"),
-                    gr.Textbox(label="R2 Score"), 
-                    gr.Image(label="Feature Importance"),
-                    gr.Image(label = "Comparision")
+                    gr.Textbox(label="R2 Score"),
+                    gr.Gallery(allow_preview=True, label="Data Visualization", object_fit="fill", type="numpy", height="auto", rows=(1, 2), columns=[1])
                     
                 ]
             
@@ -76,7 +77,7 @@ def app_interface():
                     gr.Radio(label="Sex", choices=[("Male", 1), ("Female", 0)]),
                     gr.Slider(label="Weight (kg)", minimum=10, maximum=300, step=1),
                                 
-                    gr.Slider(label="BMI", minimum=10, maximum=30, step=1),
+                    gr.Slider(label="BM I", minimum=10, maximum=30, step=1),
                     gr.Radio(label="Hereditary Disease", choices=[
                         ('NoDisease', 0),( 'Epilepsy',1), ('EyeDisease',2), ('Alzheimer',3), ('Arthritis',4),
                         ('HeartDisease',5), ('Diabetes',6), ('Cancer',7), ('High BP',8), ('Obesity',9)
@@ -89,9 +90,9 @@ def app_interface():
                     gr.Radio(label="Physical Activity", choices=[("Non Active", 0), ("Active", 1)]),
                 ]
               
-                output = [gr.Textbox(label="Prediction")]
+                output = [gr.Label(label="Prediction")]
                 
-                predict_button = gr.Button(value="Health Insurance Cost Prediction")
+                predict_button = gr.Button(value="Predict")
                 
         random_train_button.click(run_one, inputs=random_input, outputs=random_output)
         predict_button.click(predict_insurance_cost, inputs=inp, outputs=output)

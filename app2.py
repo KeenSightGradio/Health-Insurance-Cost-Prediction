@@ -41,7 +41,7 @@ def predict_insurance_cost(age,sex,weight,bmi,hereditary_diseases,no_of_dependen
 
     prediction = random_model.predict(input_data)
     
-    return str(prediction[0]) + "$ cost"
+    return str(int(prediction[0])) + " 💲 Insurance Cost"
 
 
 random_input = [
@@ -52,8 +52,8 @@ random_input = [
 random_output = [
                     gr.Textbox(label="MEA Score"),
                     gr.Textbox(label="R2 Score"), 
-                    gr.Image(label="Feature Importance"),
-                    gr.Image(label = "Comparision")
+                    gr.Gallery(allow_preview=True, label="Data Visualization", object_fit="fill", type="numpy", height="auto", rows=(1, 2), columns=[1])
+                    
                     ]
 
 inp = [

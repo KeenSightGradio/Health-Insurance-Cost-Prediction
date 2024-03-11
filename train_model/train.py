@@ -128,8 +128,10 @@ def run_one(n_estimators, max_depth, test_size):
     
     feat_impo = visualize_feature_importances(train_data.columns)
     plot_image = plot(y_pred, test_label)
+    
+    visuals = [feat_impo, plot_image]
   
-    return MAE_score_one, R2_Score_one, feat_impo, plot_image
+    return MAE_score_one, R2_Score_one, visuals
 
   
 if __name__ == "__main__":
